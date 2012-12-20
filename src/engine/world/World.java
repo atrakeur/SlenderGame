@@ -77,10 +77,15 @@ public class World{
 	/*
 	 * Update all entities
 	 */
-	public static void updateWorld(){
+	public static void update(){
+		//Update all entities
 		for(IEntitable e : entities)
 			if(e instanceof IUpdatable)
 				((IUpdatable)e).onUpdate();
+		
+		//Update main camera (if updatable)
+		if(getMainCamera() instanceof IUpdatable)
+			((IUpdatable)getMainCamera()).onUpdate();
 	}
 	
 	/*

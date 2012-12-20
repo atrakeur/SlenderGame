@@ -22,7 +22,7 @@ public abstract class Engine {
 		
 		while(run){
 			//update and draw
-			
+			World.update();
 			Render.update();
 			try {
 				Thread.sleep(50);
