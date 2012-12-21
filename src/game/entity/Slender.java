@@ -9,6 +9,7 @@ import engine.entity.IUpdatable;
 public class Slender extends Entity implements IDrawable, IUpdatable{
 	
 	public void onUpdate(){
+		position().x += 0.1f;
 	}
 	
 	public void onDraw(){
