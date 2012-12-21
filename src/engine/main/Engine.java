@@ -8,8 +8,11 @@ public abstract class Engine {
 	
 	private boolean run = true;
 	
+	/**
+	 * Contains Engine initialization, main loop, and engine cleanup
+	 */
 	public Engine(){
-		//Init render, world, input
+		//Init render, world, input, then callback
 		try {
 			World.init();
 			Render.init();
@@ -31,7 +34,7 @@ public abstract class Engine {
 			}
 		}
 		
-		//quit
+		//call back quit, and destroy
 		try {
 			onQuit();
 			
@@ -43,11 +46,21 @@ public abstract class Engine {
 		}
 	}
 	
+	/**
+	 * @param quit the game or not
+	 */
 	public void Quit(boolean quit){
 		run = !quit;
 	}
 	
+	/**
+	 * Called on engine init (after component init)
+	 */
 	public abstract void onInit();
+	
+	/**
+	 * Called on engine quit (just before components destroy)
+	 */
 	public abstract void onQuit();
 
 }

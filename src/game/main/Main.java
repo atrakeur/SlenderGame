@@ -1,15 +1,17 @@
 package game.main;
-import engine.entity.Entity;
 import engine.main.Engine;
 import engine.world.World;
 import game.entity.Slender;
 
 public class Main extends Engine{
 	
+	@Override
 	public void onInit(){
+		World.getMainCamera().size().set(2, 2);
 		World.addEntity(new Slender());
 	}
 	
+	@Override
 	public void onQuit(){
 		
 	}

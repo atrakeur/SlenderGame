@@ -1,7 +1,6 @@
 package engine.collections;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Un bag est une sorte d'array list, mais qui ne preserve pas l'ordre des elements
@@ -24,6 +23,7 @@ public class Bag<E> extends ArrayList<E> {
 	/**
 	 * Remove element preserving order (setting it null)
 	 */
+	@Override
 	public boolean remove(Object object) {
 		int i = indexOf(object);
 		if (i >= 0) {
