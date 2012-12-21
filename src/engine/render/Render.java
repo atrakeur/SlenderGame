@@ -111,6 +111,7 @@ public class Render {
 			GL11.glLoadIdentity();
 			GL11.glTranslatef(e.position().x, e.position().y, 0);
 			GL11.glScalef(e.size().x, e.size().y, 0);
+			GL11.glRotatef(-e.rotation(), 0, 0, 1);
 			
 			//draw entity
 			((IDrawable)e).onDraw();

@@ -18,6 +18,7 @@ public abstract class Entity implements IEntitable{
 	
 	private final Vector2 position = new Vector2();
 	private final Vector2 size = new Vector2(1, 1);
+	private float rotation = 0;
 	
 	public void onCreate(){
 	}
@@ -32,5 +33,9 @@ public abstract class Entity implements IEntitable{
 	public final Vector2 position(){	return position;	}
 	
 	public final Vector2 size()	 {	return size;	}
+	
+	public final float rotation(){	return rotation;	}
+	
+	public final void rotation(float rotation){	this.rotation = rotation;	}
 
 }

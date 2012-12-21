@@ -15,5 +15,9 @@ public interface IEntitable {
 	public abstract Vector2 position();
 	
 	public abstract Vector2 size();
+	
+	public abstract float rotation();
+	
+	public abstract void rotation(float newRotation);
 
 }
