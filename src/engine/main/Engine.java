@@ -8,6 +8,9 @@ public abstract class Engine {
 	
 	private boolean run = true;
 	
+	private Level currentLevel;
+	private Level nextLevel;
+	
 	/**
 	 * Contains Engine initialization, main loop, and engine cleanup
 	 */
@@ -24,9 +27,15 @@ public abstract class Engine {
 		}
 		
 		while(run){
-			//update and draw
+			//update world, level and draw
 			World.update();
+			updateLevel();
 			Render.update();
+			
+			//change level if needed
+			checkChangeLevel();
+			
+			//sleep until next frame
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
@@ -49,9 +58,47 @@ public abstract class Engine {
 	/**
 	 * @param quit the game or not
 	 */
-	public void Quit(boolean quit){
+	public void quit(boolean quit){
 		run = !quit;
 	}
+	
+	/***************************************
+	 * Level part
+	 /**************************************/
+	
+	/**
+	 * Unload then load a new level at the end of the frame
+	 * @param nextLevel to load
+	 */
+	public void loadLevel(Level nextLevel){
+		this.nextLevel = nextLevel;
+	}
+	
+	public void updateLevel(){
+		if(currentLevel != null)
+			currentLevel.onUpdate();
+	}
+	
+	/**
+	 * Check if the level must be changed, and do it
+	 */
+	private void checkChangeLevel(){
+		if(nextLevel != null){
+			try {
+				currentLevel.onDestroy();
+				World.reInit();
+				currentLevel = nextLevel;
+				currentLevel.onStart();
+				nextLevel = null;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/***************************************
+	 * Callback part
+	 **************************************/
 	
 	/**
 	 * Called on engine init (after component init)

@@ -15,10 +15,10 @@ public class World{
 	
 	private static boolean isInit = false;
 	
-	/*
-	 * Hold static game map
-	 */
-	private static Tile[][] map;
+	public static final int LAYER_COUNT = 3;
+	private static Layer[] layers;
+	
+	private static Chunk[] mapChunk;
 	
 	/*
 	 * Hold dynamics objects (characters, traps)
@@ -33,21 +33,37 @@ public class World{
 	
 	private World(){}
 	
-	/*
+	/**
 	 * Init the game world
 	 */
 	public static void init() throws Exception{
 		if(isInit)
 			throw new GameException("Can't init Render twice");
 		
-		map = new Tile[0][0];
+		//create entity and camera
 		entities = new Bag<Entity>();
 		mainCamera = new Camera();
+		
+		//create layers
+		layers = new Layer[LAYER_COUNT];
+		for(int i = 0; i < LAYER_COUNT; i++)
+			layers[i] = new Layer(i);
+		
 		
 		isInit = true;
 	}
 	
-	/*
+	/**
+	 * Re inti the game worl (destroy it, then reInit it from scratch!)
+	 * @throws Exception
+	 */
+	public static void reInit() throws Exception{
+		destroy();
+		isInit = false;
+		init();
+	}
+	
+	/**
 	 * Destroy the game world
 	 */
 	public static void destroy(){
@@ -56,17 +72,31 @@ public class World{
 	}
 	
 	/*************************************************
+	 * Layer gest
+	 **************************************************/
+	
+	/**
+	 * Return the layer at the given index
+	 */
+	public static Layer getLayer(int index) throws GameException{
+		if(index >= LAYER_COUNT)
+			throw new GameException("Can't get Layer higher than "+LAYER_COUNT);
+		
+		return layers[index];
+	}
+	
+	/*************************************************
 	 * Entity gest
 	 **************************************************/
 	
-	/*
+	/**
 	 * Get an iterator on entities
 	 */
 	public static Iterator<Entity> getEntityIterator(){
 		return entities.iterator();
 	}
 	
-	/*
+	/**
 	 * Add an entity
 	 */
 	public static void addEntity(Entity e){
@@ -74,7 +104,7 @@ public class World{
 		e.onCreate();
 	}
 	
-	/*
+	/**
 	 * Update all entities
 	 */
 	public static void update(){
@@ -88,7 +118,7 @@ public class World{
 			((IUpdatable)getMainCamera()).onUpdate();
 	}
 	
-	/*
+	/**
 	 * Remove an entity
 	 */
 	public static void removeEntity(IEntitable e){
@@ -98,8 +128,8 @@ public class World{
 		}
 	}
 	
-	/*
-	 * Return the first entity with that name
+	/**
+	 * @return the first entity with that name
 	 */
 	public static IEntitable findEntityByName(String name){
 		for(IEntitable e : entities)
@@ -109,8 +139,8 @@ public class World{
 		return null;
 	}
 	
-	/*
-	 * Return all entities with that name
+	/**
+	 * @return all entities with that name
 	 */
 	public static IEntitable[] findEntitiesByName(String name){
 		ArrayList<Entity> retEnt = new ArrayList<Entity>();
@@ -125,8 +155,8 @@ public class World{
 		return retEnt2;
 	}
 	
-	/*
-	 * Return the first entity of the given class
+	/**
+	 * @return the first entity of the given class
 	 */
 	public static <T> T findEntityByType(Class<T> c){
 		for(IEntitable e : entities)
@@ -136,8 +166,8 @@ public class World{
 		return null;
 	}
 	
-	/*
-	 * Return all entity of the given class
+	/**
+	 * @return all entity of the given class
 	 */
 	public static <T> ArrayList<T> findEntitiesByType(Class<T> c){
 		ArrayList<T> retEnt = new ArrayList<T>();

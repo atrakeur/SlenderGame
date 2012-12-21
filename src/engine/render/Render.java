@@ -7,6 +7,7 @@ import engine.entity.IDrawable;
 import engine.entity.IEntitable;
 import engine.exceptions.GameException;
 import engine.math.Vector2;
+import engine.world.Layer;
 import engine.world.World;
 
 import org.lwjgl.LWJGLException;
@@ -27,8 +28,8 @@ public class Render {
 	
 	private static boolean isInit = false;
 	
-	private static int width = 640;
-	private static int height = 480;
+	private static int width = 600;
+	private static int height = 600;
 	
 	private Render(){}
 	
@@ -65,6 +66,8 @@ public class Render {
 	public static void update(){
 		updateViewport();
 		
+		updateLayer(0);
+		
 		updateEntities();
 		
 		updateGUI();
@@ -87,12 +90,35 @@ public class Render {
 		ratio = (float)width/(float)height;
 	}
 	
+	public static void updateLayer(int layer){
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
+		try {
+			Layer l = World.getLayer(layer);
+		
+			for(int i = 0; i < l.getSize().x; i++){
+				for(int j = 0; j < l.getSize().y; j++){
+					GL11.glLoadIdentity();
+					GL11.glTranslatef(-l.getSize().x/2, -l.getSize().y/2, 0);
+					GL11.glTranslatef(i, j, 0);
+					l.getTile(i, j).onDraw();
+				}
+			}
+		
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	/**
 	 * Update (draw) entities
 	 */
 	public static void updateEntities(){
-		//setup viewport
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); 
+		//setup viewport 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);

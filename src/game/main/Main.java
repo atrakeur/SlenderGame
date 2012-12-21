@@ -7,7 +7,7 @@ public class Main extends Engine{
 	
 	@Override
 	public void onInit(){
-		World.getMainCamera().size().set(2, 2);
+		World.getMainCamera().size().set(15, 15);
 		World.addEntity(new Slender());
 	}
 	
