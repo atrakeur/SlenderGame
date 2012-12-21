@@ -13,9 +13,8 @@ public class ColorBackground extends Background {
 	}
 
 	public void onDraw() {
-		GL11.glColor4f((float)color.getRed()/255,(float)color.getGreen()/255,(float)color.getBlue()/255, (float)color.getAlpha()/255);
-		
 		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glColor3f((float)color.getRed()/255,(float)color.getGreen()/255,(float)color.getBlue()/255);
 		GL11.glVertex2f(	-0.5f	,	-0.5f	);
 		GL11.glVertex2f(	0.5f	,	-0.5f	);
 		GL11.glVertex2f(	0.5f	,	0.5f	);

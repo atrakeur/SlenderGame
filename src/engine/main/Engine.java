@@ -1,6 +1,10 @@
 package engine.main;
 
+import org.lwjgl.opengl.Display;
+
+import engine.input.Input;
 import engine.render.Render;
+import engine.time.Time;
 import engine.world.World;
 
 
@@ -17,6 +21,7 @@ public abstract class Engine {
 	public Engine(){
 		//Init render, world, input, then callback
 		try {
+			Time.init();
 			World.init();
 			Render.init();
 			
@@ -26,8 +31,11 @@ public abstract class Engine {
 			run = false;
 		}
 		
-		while(run){
+		while(run && !Display.isCloseRequested()){
+			Time.startFrame();
+			
 			//update world, level and draw
+			Input.update();
 			World.update();
 			updateLevel();
 			Render.update();
@@ -37,7 +45,7 @@ public abstract class Engine {
 			
 			//sleep until next frame
 			try {
-				Thread.sleep(50);
+				Thread.sleep(Time.getSleep());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

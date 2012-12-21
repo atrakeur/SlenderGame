@@ -5,11 +5,12 @@ import org.lwjgl.opengl.GL11;
 import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IUpdatable;
+import engine.time.Time;
 
 public class Slender extends Entity implements IDrawable, IUpdatable{
 	
 	public void onUpdate(){
-		rotation(rotation() + 0.1f);
+		
 	}
 	
 	public void onDraw(){

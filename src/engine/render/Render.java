@@ -28,8 +28,8 @@ public class Render {
 	
 	private static boolean isInit = false;
 	
-	private static int width = 640;
-	private static int height = 480;
+	private static int width = 600;
+	private static int height = 400;
 	
 	private Render(){}
 	
@@ -66,6 +66,8 @@ public class Render {
 	public static void update(){
 		updateViewport();
 		
+		//GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
 		updateBackground();
 		
 		updateLayer(0);
@@ -73,7 +75,7 @@ public class Render {
 		
 		updateEntities();
 		
-		updateLayer(1);
+		updateLayer(2);
 		
 		updateGUI();
 		
@@ -103,6 +105,7 @@ public class Render {
 		GL11.glLoadIdentity();
 		GL11.glOrtho(-0.5, 0.5, -0.5, 0.5, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
 		
 		World.getBackground().onDraw();
 	}
@@ -116,14 +119,15 @@ public class Render {
 		GL11.glLoadIdentity();
 		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
 		
 		try {
 			Layer l = World.getLayer(layer);
 		
-			for(int i = 0; i < l.getSize().x; i++){
-				for(int j = 0; j < l.getSize().y; j++){
+			for(int i = 0; i < l.size().x; i++){
+				for(int j = 0; j < l.size().y; j++){
 					GL11.glLoadIdentity();
-					GL11.glTranslatef((-l.getSize().x+1)/2, (-l.getSize().y+1)/2, 0);
+					GL11.glTranslatef((-l.size().x+1)/2, (-l.size().y+1)/2, 0);
 					GL11.glTranslatef(i, j, 0);
 					l.getTile(i, j).onDraw();
 				}
@@ -144,6 +148,7 @@ public class Render {
 		GL11.glLoadIdentity();
 		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
 		
 		//draw all drawable game objects
 		IEntitable e;
@@ -189,6 +194,7 @@ public class Render {
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, width, 0, height, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
 	}
 	
 	/**
@@ -196,6 +202,14 @@ public class Render {
 	 */
 	public static void destroy(){
 		Display.destroy();
+	}
+	
+	public static int width(){
+		return width;
+	}
+	
+	public static int height(){
+		return height;
 	}
 
 }

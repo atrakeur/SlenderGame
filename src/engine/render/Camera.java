@@ -16,5 +16,23 @@ import engine.entity.Entity;
  *
  */
 public class Camera extends Entity{
+	
+	/**
+	 * Translate screen X coordinate to world X coordinate
+	 * @param screenX position on screen (in pixel)
+	 * @return the world position
+	 */
+	public float screenToWorldX(float screenX){
+		return (screenX-Render.width()/2)/Render.width() * size().x + position().x;
+	}
+	
+	/**
+	 * Translate screen Y coordinate to world Y coordinate
+	 * @param screenY position on screen (in pixel)
+	 * @return the world position
+	 */
+	public float screenToWorldY(float screenY){
+		return (screenY-Render.height()/2)/Render.height() * size().y + position().y;
+	}
 
 }

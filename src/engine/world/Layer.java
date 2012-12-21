@@ -31,6 +31,12 @@ public class Layer {
 		setSize(15, 15);
 	}
 	
+	/**
+	 * Define the size of the layer
+	 * Clear the tiles
+	 * @param width
+	 * @param height
+	 */
 	public void setSize(int width, int height){
 		size = new Vector2(width, height);
 		tiles = new Tile[width][height];
@@ -40,14 +46,41 @@ public class Layer {
 				tiles[i][j] = new NoTile();
 	}
 	
-	public Vector2 getSize(){
+	/**
+	 * @return the size of the Layer
+	 */
+	public Vector2 size(){
 		return size;
 	}
 	
+	/**
+	 * Check if a tile exist or not
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean exist(int x, int y){
 		return x >= 0 && x < size.x && y >= 0 && y < size.y;
 	}
 	
+	/**
+	 * Return the tile nearest to the given coordinates
+	 * @param x
+	 * @param y
+	 * @return the nearest tile
+	 * @throws GameException if tile out of layer
+	 */
+	public Tile getNearestTile(float x, float y) throws GameException{
+		return getTile((int)Math.rint(x), (int)Math.rint(y));
+	}
+	
+	/**
+	 * Return the tile at the given coordinates
+	 * @param x
+	 * @param y
+	 * @return the tile at the coordinates
+	 * @throws GameException if tile out of layer
+	 */
 	public Tile getTile(int x, int y) throws GameException{
 		if(!exist(x, y))
 			throw new GameException("Can't get non existing tile ("+x+","+y+")");
@@ -55,6 +88,12 @@ public class Layer {
 		return tiles[x][y];
 	}
 	
+	/**
+	 * Redefine the tile at the given coordinates
+	 * @param x
+	 * @param y
+	 * @param tile to set
+	 */
 	public void setTile(int x, int y, Tile tile){
 		if(tile == null)
 			tiles[x][y] = new NoTile();
