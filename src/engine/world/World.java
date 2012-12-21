@@ -9,16 +9,24 @@ import engine.entity.IEntitable;
 import engine.entity.IUpdatable;
 import engine.exceptions.GameException;
 import engine.render.Camera;
+import engine.world.background.NoBackground;
+import engine.world.background.Background;
 
-
+/**
+ * Hold the game world
+ * 
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 21 déc. 2012 at 19:34:01
+ *
+ */
 public class World{
 	
 	private static boolean isInit = false;
 	
+	private static Background background;
+	
 	public static final int LAYER_COUNT = 3;
 	private static Layer[] layers;
-	
-	private static Chunk[] mapChunk;
 	
 	/*
 	 * Hold dynamics objects (characters, traps)
@@ -39,6 +47,8 @@ public class World{
 	public static void init() throws Exception{
 		if(isInit)
 			throw new GameException("Can't init Render twice");
+		
+		background = new NoBackground();
 		
 		//create entity and camera
 		entities = new Bag<Entity>();
@@ -181,5 +191,22 @@ public class World{
 	public static void setMainCamera(Camera mainCamera) {	World.mainCamera = mainCamera;	}
 
 	public static Camera getMainCamera() {	return mainCamera;	}
+
+	/**
+	 * @param background the background to set
+	 */
+	public static void setBackground(Background background) {
+		if(background == null)
+			background = new NoBackground();
+		
+		World.background = background;
+	}
+
+	/**
+	 * @return the background
+	 */
+	public static Background getBackground() {
+		return background;
+	}
 
 }

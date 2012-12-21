@@ -28,8 +28,8 @@ public class Render {
 	
 	private static boolean isInit = false;
 	
-	private static int width = 600;
-	private static int height = 600;
+	private static int width = 640;
+	private static int height = 480;
 	
 	private Render(){}
 	
@@ -66,9 +66,14 @@ public class Render {
 	public static void update(){
 		updateViewport();
 		
+		updateBackground();
+		
 		updateLayer(0);
+		updateLayer(1);
 		
 		updateEntities();
+		
+		updateLayer(1);
 		
 		updateGUI();
 		
@@ -90,7 +95,23 @@ public class Render {
 		ratio = (float)width/(float)height;
 	}
 	
-	public static void updateLayer(int layer){
+	/**
+	 * Update (draw) background
+	 */
+	public static void updateBackground(){
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(-0.5, 0.5, -0.5, 0.5, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
+		World.getBackground().onDraw();
+	}
+	
+	/**
+	 * Update (draw) the layer
+	 * @param layer to update
+	 */
+	public static void updateLayer(int layer){	
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
@@ -102,7 +123,7 @@ public class Render {
 			for(int i = 0; i < l.getSize().x; i++){
 				for(int j = 0; j < l.getSize().y; j++){
 					GL11.glLoadIdentity();
-					GL11.glTranslatef(-l.getSize().x/2, -l.getSize().y/2, 0);
+					GL11.glTranslatef((-l.getSize().x+1)/2, (-l.getSize().y+1)/2, 0);
 					GL11.glTranslatef(i, j, 0);
 					l.getTile(i, j).onDraw();
 				}
