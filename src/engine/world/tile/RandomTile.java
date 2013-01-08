@@ -27,4 +27,8 @@ public class RandomTile extends Tile{
 		return false;
 	}
 
+	public Tile copy() {
+		return new RandomTile();
+	}
+
 }

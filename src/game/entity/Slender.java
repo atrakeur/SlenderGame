@@ -22,10 +22,9 @@ public class Slender extends Entity implements IDrawable, IUpdatable{
 	
 	public void onDraw() throws IOException{
 		//GL11.glColor3f(0.5f,0.5f,1.0f);
+		TextureLoader.getTexture("slender.png").bind();
 		
 		GL11.glBegin(GL11.GL_QUADS);
-		
-		TextureLoader.getTexture("grass.jpg").bind();
 		
 		GL11.glTexCoord2f(0f, 0f);
 		GL11.glVertex2f(	-0.5f	,	-0.5f	);

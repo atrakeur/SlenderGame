@@ -4,6 +4,7 @@ import org.lwjgl.opengl.Display;
 
 import engine.input.Input;
 import engine.render.Render;
+import engine.resources.Resources;
 import engine.time.Time;
 import engine.world.World;
 
@@ -22,6 +23,7 @@ public abstract class Engine {
 		//Init render, world, input, then callback
 		try {
 			Time.init();
+			Resources.init();
 			World.init();
 			Render.init();
 			

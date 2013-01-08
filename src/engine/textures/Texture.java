@@ -1,32 +1,27 @@
 package engine.textures;
 
+import java.awt.image.BufferedImage;
+
 import org.lwjgl.opengl.GL11;
 
 public class Texture {
 	
 	private final String name;
-	private final int target;
-	private final int textureID;
-	
-	private int width;
-	private int height;
+	private int textureID;
+	private final BufferedImage image;
 
-	public Texture(String resourceName, int target, int textureID) {
+	public Texture(String resourceName, BufferedImage image) {
 		name = resourceName;
-		this.target = target;
-		this.textureID = textureID;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
+		this.image = image;
+		textureID = GLImporter.loadImage(this.image);
 	}
 	
-	public void setHeight(int height) {
-		this.height = height;
+	public void close(){
+		GLImporter.deleteImage(textureID);
 	}
 	
 	public void bind(){
-		GL11.glBindTexture(target, textureID);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
 	}
 
 }

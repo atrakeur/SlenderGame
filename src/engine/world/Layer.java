@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import engine.collections.TileSet;
 import engine.exceptions.GameException;
 import engine.math.Vector2;
 import engine.world.tile.NoTile;
@@ -99,6 +100,22 @@ public class Layer {
 			tiles[x][y] = new NoTile();
 		
 		tiles[x][y] = tile;
+	}
+	
+	/***************************
+	 * Loading/Saving methods
+	 * @throws GameException 
+	 ***************************/
+	
+	public void loadFromString(String data, TileSet tileMap) throws GameException{
+		if(data.length() != size.x * size.y)
+			throw new GameException("String lenght isn't correct");
+		
+		for(int i = 0 ; i < data.length(); i++){
+			Tile tile = tileMap.get(data.charAt(i));
+			if(tile != null)
+				tiles[i / (int)size.x][i % (int)size.x] = tile.copy();
+		}
 	}
 
 }

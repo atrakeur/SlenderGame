@@ -9,4 +9,8 @@ public class NoTile extends Tile {
 		return false;
 	}
 
+	public Tile copy() {
+		return new NoTile();
+	}
+
 }
