@@ -1,5 +1,6 @@
 package engine.render;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import engine.entity.Entity;
@@ -51,6 +52,11 @@ public class Render {
 	private static void initDisplay() throws LWJGLException{
 		Display.setDisplayMode(new DisplayMode(width,height));
 		Display.create();
+		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_TEXTURE);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
 	/*
@@ -166,7 +172,11 @@ public class Render {
 			GL11.glRotatef(-e.rotation(), 0, 0, 1);
 			
 			//draw entity
-			((IDrawable)e).onDraw();
+			try {
+				((IDrawable)e).onDraw();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			
 		}
 		

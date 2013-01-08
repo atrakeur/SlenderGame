@@ -96,6 +96,27 @@ public class World{
 	}
 	
 	/*************************************************
+	 * Tiles gest
+	 **************************************************/
+	
+	/**
+	 * Check if given position is Blocked by a tile in any of the layers
+	 */
+	public static boolean isPositionBlocked(float x, float y){
+		boolean blocked = false;
+		int layerNumber = 0;
+		
+		while(!blocked && layerNumber <= LAYER_COUNT){
+			try {
+				blocked = getLayer(layerNumber).getNearestTile(x, y).isBlocked();
+			} catch (GameException e) {
+			}
+		}
+		
+		return blocked;
+	}
+	
+	/*************************************************
 	 * Entity gest
 	 **************************************************/
 	

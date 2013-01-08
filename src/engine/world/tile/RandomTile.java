@@ -23,4 +23,8 @@ public class RandomTile extends Tile{
 		GL11.glEnd();
 	}
 
+	public boolean isBlocked() {
+		return false;
+	}
+
 }
