@@ -53,6 +53,8 @@ public class Slender extends Entity implements IDrawable, IUpdatable{
 		GL11.glVertex2f(	-0.5f	,	0.5f	);
 		
 		GL11.glEnd();
+		
+		TextureLoader.getTexture("slender.png").unbind();
 	}
 
 }

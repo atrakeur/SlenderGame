@@ -21,7 +21,13 @@ public class Texture {
 	}
 	
 	public void bind(){
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
+		
+	}
+	
+	public void unbind(){
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 	}
 
 }
