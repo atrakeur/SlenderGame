@@ -2,6 +2,7 @@ package engine.world;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import engine.collections.Bag;
 import engine.entity.Entity;
@@ -144,6 +145,13 @@ public class World{
 	 */
 	public static Iterator<Entity> getEntityIterator(){
 		return entities.iterator();
+	}
+	
+	/**
+	 * @return a list holding all drawables objects
+	 */
+	public static List<IDrawable> getDrawables(){
+		return drawables;
 	}
 	
 	/**

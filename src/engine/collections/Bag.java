@@ -39,14 +39,14 @@ public class Bag<E> extends ArrayList<E> {
 	}
 	
 	/**
-	 * Prepare to remove a specific element at given index
+	 * 
 	 */
 	public E remove(int index){
-		if(index < 0 || index >= size())
-			return null;
-		
-		toRemove.add(index);
-		return get(index);
+		throw new UnsupportedOperationException("Can't remove by index because index isn't consistant over time");
+	}
+	
+	public E get(int index){
+		throw new UnsupportedOperationException("Can't remove by index because index isn't consistant over time");
 	}
 	
 	/**

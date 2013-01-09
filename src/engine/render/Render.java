@@ -1,7 +1,9 @@
 package engine.render;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import engine.entity.Entity;
 import engine.entity.IDrawable;
@@ -31,6 +33,8 @@ public class Render {
 	
 	private static int width = 600;
 	private static int height = 400;
+	
+	private static SortByY sorter = new SortByY();
 	
 	private Render(){}
 	
@@ -153,13 +157,9 @@ public class Render {
 		GL11.glLoadIdentity();
 		
 		//draw all drawable game objects
-		IEntitable e;
-		Iterator<Entity> iEnt = World.getEntityIterator();
-		while(iEnt.hasNext()){
-			e = iEnt.next();
-			
-			if(!(e instanceof IDrawable))
-				continue;
+		List<IDrawable> toDraw = World.getDrawables();
+		Collections.sort(toDraw, sorter);
+		for(IDrawable e: toDraw){
 			
 			//setup opengl
 			GL11.glLoadIdentity();
@@ -170,7 +170,7 @@ public class Render {
 			
 			//draw entity
 			try {
-				((IDrawable)e).onDraw();
+				e.onDraw();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
