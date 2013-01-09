@@ -11,6 +11,7 @@ import engine.entity.IUpdatable;
 import engine.input.Input;
 import engine.textures.TextureLoader;
 import engine.time.Time;
+import engine.world.World;
 
 /**
  * Define the Slender character, who is controlled by the player
@@ -38,6 +39,9 @@ public class Slender extends Entity implements IDrawable, IUpdatable{
 			x++;
 		
 		this.move(x * Time.delta(), y * Time.delta());
+		
+		World.getMainCamera().position().x = position().x;
+		World.getMainCamera().position().y = position().y;
 	}
 	
 	public void onDraw() throws IOException{

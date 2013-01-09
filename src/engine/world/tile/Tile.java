@@ -8,6 +8,10 @@ public abstract class Tile {
 	
 	public abstract boolean isBlocked();
 	
-	public abstract Tile copy(); 
+	public abstract Tile copy();
+
+	public String toString() {
+		return "Tile";
+	} 
 
 }

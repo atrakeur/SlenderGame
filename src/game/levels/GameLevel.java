@@ -47,7 +47,7 @@ public class GameLevel extends Level{
 		
 		//Setup entities
 		World.addEntity(new Slender());
-		World.addEntity(new Woman());
+		//World.addEntity(new Woman());
 	}
 
 	public void onUpdate() {

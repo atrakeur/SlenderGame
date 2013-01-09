@@ -61,6 +61,9 @@ public class Layer {
 	 * @return
 	 */
 	public boolean exist(int x, int y){
+		x = (int) (x+size.x/2);
+		y = (int) (y+size.y/2);
+		
 		return x >= 0 && x < size.x && y >= 0 && y < size.y;
 	}
 	
@@ -86,6 +89,9 @@ public class Layer {
 		if(!exist(x, y))
 			throw new GameException("Can't get non existing tile ("+x+","+y+")");
 		
+		x = (int) (x+size.x/2);
+		y = (int) (y+size.y/2);
+		
 		if(tiles[x][y] == null)
 			throw new GameException("Tile ("+x+","+y+") shouldn't be null");
 		
@@ -99,6 +105,19 @@ public class Layer {
 	 * @param tile to set
 	 */
 	public void setTile(int x, int y, Tile tile){
+		x = (int) (x+size.x/2);
+		y = (int) (y+size.y/2);
+		
+		setRawTile(x, y, tile);
+	}
+	
+	/**
+	 * Set tile using Raw coordinates
+	 * @param x
+	 * @param y
+	 * @param tile
+	 */
+	public void setRawTile(int x, int y, Tile tile){
 		if(tile == null)
 			tiles[x][y] = new NoTile();
 		
@@ -129,10 +148,30 @@ public class Layer {
 		
 		for(int y = 0; y < sizeY; y++){
 			for(int x = 0; x < sizeX; x++){
-				setTile(x, y, tileMap.get(data[sizeY-1-y].charAt(x)));
+				setRawTile(x, y, tileMap.get(data[sizeY-1-y].charAt(x)).copy());
 			}
 		}
 			
+	}
+	
+	public boolean isPositionBlocked(float x, float y) throws GameException {
+		return isPositionBlocked(x, y, 0.4f);
+	}
+
+	public boolean isPositionBlocked(float x, float y, float halfsize) throws GameException {
+		if(getNearestTile(x-halfsize, y-halfsize).isBlocked())
+			return true;
+		
+		if(getNearestTile(x+halfsize, y-halfsize).isBlocked())
+			return true;
+		
+		if(getNearestTile(x-halfsize, y+halfsize).isBlocked())
+			return true;
+		
+		if(getNearestTile(x+halfsize, y+halfsize).isBlocked())
+			return true;
+		
+		return false;
 	}
 
 }

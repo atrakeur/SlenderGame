@@ -13,4 +13,8 @@ public class NoTile extends Tile {
 		return new NoTile();
 	}
 
+	public String toString() {
+		return "NoTile";
+	}
+
 }

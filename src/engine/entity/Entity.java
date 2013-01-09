@@ -1,6 +1,7 @@
 package engine.entity;
 
 import engine.math.Vector2;
+import engine.world.World;
 
 /**
  * Entity class
@@ -45,10 +46,14 @@ public abstract class Entity implements IEntitable{
 
 	private final void moveX(float x){
 		position.x += x;
+		if(World.isPositionBlocked(position.x, position.y))
+			position.x -= x;
 	}
 	
 	private void moveY(float y) {
 		position.y += y;
+		if(World.isPositionBlocked(position.x, position.y))
+			position.y -= y;
 	}
 
 }

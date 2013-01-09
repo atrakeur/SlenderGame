@@ -128,13 +128,16 @@ public class World{
 		
 		while(!blocked && layerNumber <= LAYER_COUNT){
 			try {
-				blocked = getLayer(layerNumber).getNearestTile(x, y).isBlocked();
+				blocked = getLayer(layerNumber).isPositionBlocked(x, y); 
 			} catch (GameException e) {
 			}
+			layerNumber++;
 		}
 		
 		return blocked;
 	}
+	
+	
 	
 	/*************************************************
 	 * Entity gest

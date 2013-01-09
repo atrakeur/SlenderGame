@@ -51,4 +51,8 @@ public class ImageTile extends Tile {
 		TextureLoader.getTexture(image).unbind();
 	}
 
+	public String toString() {
+		return "ImageTile [image=" + image + ", isBlocked=" + isBlocked + "]";
+	}
+
 }

@@ -36,7 +36,7 @@ public class Render {
 	
 	private static SortByY sorter = new SortByY();
 	
-	public static boolean debugAxis = false;
+	public static boolean debugAxis = true;
 	
 	private Render(){}
 	
@@ -100,12 +100,13 @@ public class Render {
 		Vector2 pos  = World.getMainCamera().position();
 		Vector2 size = World.getMainCamera().size();
 		
-		cameraUpperLeft.x = pos.x - size.x/2;
-		cameraUpperLeft.y = pos.y - size.y/2;
-		cameraLowerRight.x = pos.x + size.x/2;
-		cameraLowerRight.y = pos.y + size.y/2;
-		
 		ratio = (float)width/(float)height;
+		
+		cameraUpperLeft.x = (pos.x - size.x/2);
+		cameraUpperLeft.y = pos.y - size.y/2 / ratio;
+		cameraLowerRight.x = (pos.x + size.x/2);
+		cameraLowerRight.y = pos.y + size.y/2 / ratio;
+		
 	}
 	
 	/**
@@ -128,17 +129,17 @@ public class Render {
 	public static void updateLayer(int layer){	
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
+		GL11.glOrtho(cameraUpperLeft.x, cameraLowerRight.x, cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		
 		try {
 			Layer l = World.getLayer(layer);
 		
-			for(int i = 0; i < l.size().x; i++){
-				for(int j = 0; j < l.size().y; j++){
+			for(int i = (int) (-l.size().x/2); i < l.size().x/2; i++){
+				for(int j = (int) (-l.size().x/2); j < l.size().y/2; j++){
 					GL11.glLoadIdentity();
-					GL11.glTranslatef((-l.size().x+1)/2, (-l.size().y+1)/2, 0);
+					//GL11.glScalef(1 / ratio, 1, 0);
 					GL11.glTranslatef(i, j, 0);
 					try {
 						l.getTile(i, j).onDraw();
@@ -161,7 +162,7 @@ public class Render {
 		//setup viewport 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
+		GL11.glOrtho(cameraUpperLeft.x, cameraLowerRight.x, cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		
@@ -172,8 +173,8 @@ public class Render {
 			
 			//setup opengl
 			GL11.glLoadIdentity();
-			GL11.glTranslatef(e.position().x, e.position().y, 0);
 			GL11.glScalef(e.size().x, e.size().y, 0);
+			GL11.glTranslatef(e.position().x, e.position().y, 0);
 			GL11.glRotatef(180, 0, 0, 1);
 			GL11.glRotatef(-e.rotation(), 0, 0, 1);
 			
@@ -204,7 +205,7 @@ public class Render {
 		//setup viewport 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
+		GL11.glOrtho(ratio * cameraUpperLeft.x, ratio * cameraLowerRight.x, cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		
