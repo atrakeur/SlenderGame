@@ -37,5 +37,18 @@ public abstract class Entity implements IEntitable{
 	public final float rotation(){	return rotation;	}
 	
 	public final void rotation(float rotation){	this.rotation = rotation;	}
+	
+	public final void move(float x, float y){
+		moveX(x);
+		moveY(y);
+	}
+
+	private final void moveX(float x){
+		position.x += x;
+	}
+	
+	private void moveY(float y) {
+		position.y += y;
+	}
 
 }

@@ -2,26 +2,40 @@ package game.entity;
 
 import java.io.IOException;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IUpdatable;
+import engine.input.Input;
 import engine.textures.TextureLoader;
 import engine.time.Time;
 
 public class Slender extends Entity implements IDrawable, IUpdatable{
 	
 	public void onStart() throws IOException{
-		//TextureLoader.getTexture("grass.jpg");
+		this.setName("Slender");
 	}
 	
 	public void onUpdate(){
+		int x = 0;
+		int y = 0;
 		
+		if(Input.isKeyDown(Keyboard.KEY_S))
+			y--;
+		if(Input.isKeyDown(Keyboard.KEY_Z))
+			y++;
+		if(Input.isKeyDown(Keyboard.KEY_Q))
+			x--;
+		if(Input.isKeyDown(Keyboard.KEY_D))
+			x++;
+		
+		this.move(x * Time.delta(), y * Time.delta());
 	}
 	
 	public void onDraw() throws IOException{
-		//GL11.glColor3f(0.5f,0.5f,1.0f);
+		GL11.glColor3f(1f,1f,1f);
 		TextureLoader.getTexture("slender.png").bind();
 		
 		GL11.glBegin(GL11.GL_QUADS);
