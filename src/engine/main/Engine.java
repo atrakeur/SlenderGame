@@ -22,6 +22,8 @@ public abstract class Engine {
 	public Engine(){
 		//Init render, world, input, then callback
 		try {
+			onStart();
+			
 			Time.init();
 			Resources.init();
 			World.init();
@@ -95,7 +97,8 @@ public abstract class Engine {
 	private void checkChangeLevel(){
 		if(nextLevel != null){
 			try {
-				currentLevel.onDestroy();
+				if(currentLevel != null)
+					currentLevel.onDestroy();
 				World.reInit();
 				currentLevel = nextLevel;
 				currentLevel.onStart();
@@ -119,5 +122,10 @@ public abstract class Engine {
 	 * Called on engine quit (just before components destroy)
 	 */
 	public abstract void onQuit();
+	
+	/**
+	 * Called just before engine init (so you can set things like resolution)
+	 */
+	public abstract void onStart();
 
 }

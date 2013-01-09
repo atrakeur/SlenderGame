@@ -215,8 +215,22 @@ public class Render {
 		return width;
 	}
 	
+	public static void setWidth(int width) throws GameException{
+		if(isInit)
+			throw new GameException("Can't change game resolution after init Change resolution in onStart instead");
+		
+		Render.width = width;
+	}
+	
 	public static int height(){
 		return height;
+	}
+	
+	public static void setHeight(int height) throws GameException{
+		if(isInit)
+			throw new GameException("Can't change game resolution after init Change resolution in onStart instead");
+		
+		Render.height = height;
 	}
 
 }

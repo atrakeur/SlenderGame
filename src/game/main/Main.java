@@ -1,18 +1,24 @@
 package game.main;
-import java.awt.Color;
 
+import engine.exceptions.GameException;
 import engine.main.Engine;
-import engine.world.World;
-import engine.world.background.ColorBackground;
-import game.entity.Slender;
+import engine.render.Render;
+import game.levels.GameLevel;
 
 public class Main extends Engine{
 	
+	public void onStart(){
+		try {
+			Render.setWidth(800);
+			Render.setHeight(600);
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void onInit(){
-		World.getMainCamera().size().set(5, 5);
-		World.setBackground(new ColorBackground(new Color(0.1f, 0.4f, 0.1f)));
-		World.addEntity(new Slender());
+		this.loadLevel(new GameLevel("TestLevel"));
 	}
 	
 	@Override

@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import engine.collections.Bag;
 import engine.entity.Entity;
+import engine.entity.IDrawable;
 import engine.entity.IEntitable;
 import engine.entity.IUpdatable;
 import engine.exceptions.GameException;
@@ -32,6 +33,8 @@ public class World{
 	 * Hold dynamics objects (characters, traps)
 	 */
 	private static Bag<Entity> entities;
+	private static Bag<IUpdatable> updatables;
+	private static Bag<IDrawable> drawables;
 	
 	private static Camera mainCamera;
 	
@@ -52,6 +55,9 @@ public class World{
 		
 		//create entity and camera
 		entities = new Bag<Entity>();
+		updatables = new Bag<IUpdatable>();
+		drawables = new Bag<IDrawable>();
+		
 		mainCamera = new Camera();
 		
 		//create layers
@@ -64,7 +70,7 @@ public class World{
 	}
 	
 	/**
-	 * Re inti the game worl (destroy it, then reInit it from scratch!)
+	 * Re inti the game world (destroy it, then reInit it from scratch!)
 	 * @throws Exception
 	 */
 	public static void reInit() throws Exception{
@@ -74,11 +80,24 @@ public class World{
 	}
 	
 	/**
+	 * Clean world data
+	 */
+	public static void clean(){
+		entities.clean();
+		updatables.clean();
+		drawables.clean();
+	}
+	
+	/**
 	 * Destroy the game world
 	 */
 	public static void destroy(){
 		for(IEntitable e : entities)
 			e.onDestroy();
+		
+		entities.clear();
+		updatables.clear();
+		drawables.clear();
 	}
 	
 	/*************************************************
@@ -132,6 +151,13 @@ public class World{
 	 */
 	public static void addEntity(Entity e){
 		entities.add(e);
+		
+		if(e instanceof IUpdatable)
+			updatables.add((IUpdatable)e);
+		
+		if(e instanceof IDrawable)
+			drawables.add((IDrawable)e);
+		
 		e.onCreate();
 	}
 	
@@ -139,14 +165,12 @@ public class World{
 	 * Update all entities
 	 */
 	public static void update(){
-		//Update all entities
-		for(IEntitable e : entities)
-			if(e instanceof IUpdatable)
-				((IUpdatable)e).onUpdate();
+		//Update all updatable entities
+		for(IUpdatable u : updatables)
+			u.onUpdate();
 		
-		//Update main camera (if updatable)
-		if(getMainCamera() instanceof IUpdatable)
-			((IUpdatable)getMainCamera()).onUpdate();
+		if(mainCamera instanceof IUpdatable)
+			((IUpdatable) mainCamera).onUpdate();
 	}
 	
 	/**
@@ -156,6 +180,8 @@ public class World{
 		if(entities.contains(e)){
 			e.onDestroy();
 			entities.remove(e);
+			updatables.remove(e);
+			drawables.remove(e);
 		}
 	}
 	
