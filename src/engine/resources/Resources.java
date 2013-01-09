@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -29,10 +30,23 @@ public class Resources {
 		dataPath = appPath +"data/";
 	}
 	
-	public static void loadText(String fileName){
-		File file = new File(fileName);
+	public static String loadText(String filename) throws IOException{
+		File file = new File(dataPath+filename);
+		if(!file.exists())
+			throw new IOException("File "+dataPath+filename+" don't exist");
 		
+		int numRead;
+		char[] buffer = new char[1024];
 		
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		StringBuilder sb = new StringBuilder();
+	
+		while((numRead = reader.read(buffer)) != -1)
+			sb.append(buffer);
+		
+		reader.close();
+		
+		return sb.toString();
 	}
 	
 	public static BufferedImage loadImage(String filename) throws IOException{

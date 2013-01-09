@@ -86,6 +86,9 @@ public class Layer {
 		if(!exist(x, y))
 			throw new GameException("Can't get non existing tile ("+x+","+y+")");
 		
+		if(tiles[x][y] == null)
+			throw new GameException("Tile ("+x+","+y+") shouldn't be null");
+		
 		return tiles[x][y];
 	}
 	
@@ -107,15 +110,29 @@ public class Layer {
 	 * @throws GameException 
 	 ***************************/
 	
-	public void loadFromString(String data, TileSet tileMap) throws GameException{
-		if(data.length() != size.x * size.y)
-			throw new GameException("String lenght isn't correct");
+	public void loadFromString(String text, TileSet tileMap) throws GameException{
+		String[] data = text.split("\n");
 		
-		for(int i = 0 ; i < data.length(); i++){
-			Tile tile = tileMap.get(data.charAt(i));
-			if(tile != null)
-				tiles[i / (int)size.x][i % (int)size.x] = tile.copy();
+		int sizeY = data.length;
+		if(sizeY <= 0){
+			setSize(0, 0);
+			return;
 		}
+		
+		int sizeX = data[0].length();
+		if(sizeX <= 0){
+			setSize(0, 0);
+			return;
+		}
+		
+		setSize(sizeX, sizeY);
+		
+		for(int y = 0; y < sizeY; y++){
+			for(int x = 0; x < sizeX; x++){
+				setTile(x, y, tileMap.get(data[sizeY-1-y].charAt(x)));
+			}
+		}
+			
 	}
 
 }

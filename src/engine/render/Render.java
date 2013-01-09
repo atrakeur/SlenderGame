@@ -36,6 +36,8 @@ public class Render {
 	
 	private static SortByY sorter = new SortByY();
 	
+	public static boolean debugAxis = false;
+	
 	private Render(){}
 	
 	/*
@@ -82,6 +84,9 @@ public class Render {
 		updateEntities();
 		
 		updateLayer(2);
+		
+		if(debugAxis)
+			updateDebugAxis();
 		
 		updateGUI();
 		
@@ -135,7 +140,11 @@ public class Render {
 					GL11.glLoadIdentity();
 					GL11.glTranslatef((-l.size().x+1)/2, (-l.size().y+1)/2, 0);
 					GL11.glTranslatef(i, j, 0);
-					l.getTile(i, j).onDraw();
+					try {
+						l.getTile(i, j).onDraw();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		
@@ -177,19 +186,6 @@ public class Render {
 			
 		}
 		
-		//draw debug axis
-		GL11.glLoadIdentity();
-		GL11.glTranslatef(ratio * World.getMainCamera().position().x, World.getMainCamera().position().y, 0);
-		GL11.glBegin(GL11.GL_LINES);
-			GL11.glColor3f(1, 0, 0);
-			GL11.glVertex3f(0.5f, 0, 0);
-			GL11.glVertex3f(0, 0, 0);
-			
-			GL11.glColor3f(0, 1, 0);
-			GL11.glVertex3f(0, 0.5f, 0);
-			GL11.glVertex3f(0, 0, 0);
-		GL11.glEnd();
-		
 	}
 	
 	/**
@@ -202,6 +198,28 @@ public class Render {
 		GL11.glOrtho(0, width, 0, height, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
+	}
+	
+	public static void updateDebugAxis(){
+		//setup viewport 
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(ratio * (cameraUpperLeft.x), ratio * (cameraLowerRight.x), cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
+		
+		//draw debug axis
+		GL11.glLoadIdentity();
+		GL11.glTranslatef(ratio * World.getMainCamera().position().x, World.getMainCamera().position().y, 0);
+		GL11.glBegin(GL11.GL_LINES);
+			GL11.glColor3f(1, 0, 0);
+			GL11.glVertex3f(0.5f, 0, 0);
+			GL11.glVertex3f(0, 0, 0);
+			
+			GL11.glColor3f(0, 1, 0);
+			GL11.glVertex3f(0, 0.5f, 0);
+			GL11.glVertex3f(0, 0, 0);
+		GL11.glEnd();
 	}
 	
 	/**
