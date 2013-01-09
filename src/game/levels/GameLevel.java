@@ -35,7 +35,8 @@ public class GameLevel extends Level{
 			TileSet layer0Tiles = new TileSet();
 			layer0Tiles.put('g', new ImageTile("tiles/bg_grass.png", false));
 			layer0Tiles.put('d', new ImageTile("tiles/bg_dirt.png", false));
-			layer0Tiles.put('s', new ImageTile("tiles/bg_stone.png", true));
+			layer0Tiles.put('s', new ImageTile("tiles/bg_sand.png", false));
+			layer0Tiles.put('S', new ImageTile("tiles/bg_stone.png", true));
 			layer0Tiles.put('w', new ImageTile("tiles/bg_wall.png", true));
 			layer0Tiles.put('W', new ImageTile("tiles/bg_wall2.png", true));
 			layer0Tiles.put('l', new ImageTile("tiles/bg_water.png", true));
