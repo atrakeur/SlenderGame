@@ -9,6 +9,7 @@ import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IUpdatable;
 import engine.input.Input;
+import engine.math.Vector2;
 import engine.textures.TextureLoader;
 import engine.time.Time;
 import engine.world.World;
@@ -21,24 +22,26 @@ import engine.world.World;
  */
 public class Slender extends Entity implements IDrawable, IUpdatable{
 	
+	private Vector2 direction = new Vector2();
+	
 	public void onStart() throws IOException{
 		this.setName("Slender");
 	}
 	
 	public void onUpdate(){
-		int x = 0;
-		int y = 0;
+		direction.x = 0;
+		direction.y = 0;
 		
 		if(Input.isKeyDown(Keyboard.KEY_S))
-			y--;
+			direction.y--;
 		if(Input.isKeyDown(Keyboard.KEY_Z))
-			y++;
+			direction.y++;
 		if(Input.isKeyDown(Keyboard.KEY_Q))
-			x--;
+			direction.x--;
 		if(Input.isKeyDown(Keyboard.KEY_D))
-			x++;
+			direction.x++;
 		
-		this.move(x * Time.delta(), y * Time.delta());
+		this.move(direction.x * Time.delta(), direction.y * Time.delta());
 		
 		World.getMainCamera().position().x = position().x;
 		World.getMainCamera().position().y = position().y;

@@ -139,7 +139,6 @@ public class Render {
 			for(int i = (int) (-l.size().x/2); i < l.size().x/2; i++){
 				for(int j = (int) (-l.size().x/2); j < l.size().y/2; j++){
 					GL11.glLoadIdentity();
-					//GL11.glScalef(1 / ratio, 1, 0);
 					GL11.glTranslatef(i, j, 0);
 					try {
 						l.getTile(i, j).onDraw();

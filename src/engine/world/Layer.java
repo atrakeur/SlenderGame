@@ -148,6 +148,9 @@ public class Layer {
 		
 		for(int y = 0; y < sizeY; y++){
 			for(int x = 0; x < sizeX; x++){
+				if(tileMap.get(data[sizeY-1-y].charAt(x)) == null)
+					throw new GameException("Tile named "+data[sizeY-1-y].charAt(x)+" not found in TileSet");
+				
 				setRawTile(x, y, tileMap.get(data[sizeY-1-y].charAt(x)).copy());
 			}
 		}

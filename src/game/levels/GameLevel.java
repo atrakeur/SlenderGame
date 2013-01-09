@@ -10,6 +10,8 @@ import engine.resources.Resources;
 import engine.world.World;
 import engine.world.background.ColorBackground;
 import engine.world.tile.ImageTile;
+import engine.world.tile.NoTile;
+import game.entity.characters.Man;
 import game.entity.characters.Slender;
 import game.entity.characters.Woman;
 
@@ -42,13 +44,23 @@ public class GameLevel extends Level{
 			layer0Tiles.put('l', new ImageTile("tiles/bg_water.png", true));
 			World.getLayer(0).loadFromString(Resources.loadText("levels/"+levelName+"/layer0"), layer0Tiles);
 			
+			TileSet layer2Tiles = new TileSet();
+			layer2Tiles.put('-', new NoTile());
+			layer2Tiles.put('T', new ImageTile("tiles/object_tree.png", false));
+			World.getLayer(2).loadFromString(Resources.loadText("levels/"+levelName+"/layer2"), layer2Tiles);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		//Setup entities
 		World.addEntity(new Slender());
-		//World.addEntity(new Woman());
+		World.addEntity(new Woman());
+		World.addEntity(new Woman());
+		World.addEntity(new Woman());
+		World.addEntity(new Man());
+		World.addEntity(new Man());
+		World.addEntity(new Man());
 	}
 
 	public void onUpdate() {
