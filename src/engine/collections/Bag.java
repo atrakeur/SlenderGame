@@ -46,7 +46,7 @@ public class Bag<E> extends ArrayList<E> {
 	}
 	
 	public E get(int index){
-		throw new UnsupportedOperationException("Can't remove by index because index isn't consistant over time");
+		return super.get(index);
 	}
 	
 	/**

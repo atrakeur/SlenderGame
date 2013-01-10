@@ -64,6 +64,16 @@ public class Layer {
 		x = (int) (x+size.x/2);
 		y = (int) (y+size.y/2);
 		
+		return existRaw(x, y);
+	}
+	
+	/**
+	 * Check if a tile exist or not using his Raw coordinates
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean existRaw(int x, int y){
 		return x >= 0 && x < size.x && y >= 0 && y < size.y;
 	}
 	
@@ -86,11 +96,22 @@ public class Layer {
 	 * @throws GameException if tile out of layer
 	 */
 	public Tile getTile(int x, int y) throws GameException{
-		if(!exist(x, y))
-			throw new GameException("Can't get non existing tile ("+x+","+y+")");
-		
 		x = (int) (x+size.x/2);
 		y = (int) (y+size.y/2);
+		
+		return getTileRaw(x, y);
+	}
+	
+	/**
+	 * REturn the tile at the given Raw coordinates
+	 * @param x
+	 * @param y
+	 * @return
+	 * @throws GameException
+	 */
+	public Tile getTileRaw(int x, int y) throws GameException{
+		if(!existRaw(x, y))
+			throw new GameException("Can't get non existing tile ("+x+","+y+")");
 		
 		if(tiles[x][y] == null)
 			throw new GameException("Tile ("+x+","+y+") shouldn't be null");
@@ -108,7 +129,7 @@ public class Layer {
 		x = (int) (x+size.x/2);
 		y = (int) (y+size.y/2);
 		
-		setRawTile(x, y, tile);
+		setTileRaw(x, y, tile);
 	}
 	
 	/**
@@ -117,7 +138,7 @@ public class Layer {
 	 * @param y
 	 * @param tile
 	 */
-	public void setRawTile(int x, int y, Tile tile){
+	public void setTileRaw(int x, int y, Tile tile){
 		if(tile == null)
 			tiles[x][y] = new NoTile();
 		
@@ -151,7 +172,7 @@ public class Layer {
 				if(tileMap.get(data[sizeY-1-y].charAt(x)) == null)
 					throw new GameException("Tile named "+data[sizeY-1-y].charAt(x)+" not found in TileSet");
 				
-				setRawTile(x, y, tileMap.get(data[sizeY-1-y].charAt(x)).copy());
+				setTileRaw(x, y, tileMap.get(data[sizeY-1-y].charAt(x)).copy());
 			}
 		}
 			

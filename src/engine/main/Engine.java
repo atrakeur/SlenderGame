@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import engine.input.Input;
 import engine.render.Render;
 import engine.resources.Resources;
+import engine.time.Profiler;
 import engine.time.Time;
 import engine.world.World;
 
@@ -22,6 +23,8 @@ public abstract class Engine {
 	public Engine(){
 		//Init render, world, input, then callback
 		try {
+			Profiler.startProfile("Engine/Start");
+			
 			onStart();
 			
 			Time.init();
@@ -30,6 +33,8 @@ public abstract class Engine {
 			Render.init();
 			
 			onInit();
+			
+			Profiler.endProfile("Engine/Start");
 		} catch (Exception e) {
 			e.printStackTrace();
 			run = false;
@@ -38,11 +43,18 @@ public abstract class Engine {
 		while(run && !Display.isCloseRequested()){
 			Time.startFrame();
 			
-			//update world, level and draw
+			//update world, level
+			Profiler.startProfile("Engine/Update");
 			Input.update();
 			World.update();
 			updateLevel();
+			Profiler.endProfile("Engine/Update");
+			
+			//draw world
+			Profiler.startProfile("Engine/Render");
 			Render.update();
+			Profiler.endProfile("Engine/Render");
+			
 			
 			//change level if needed
 			checkChangeLevel();
@@ -57,14 +69,18 @@ public abstract class Engine {
 		
 		//call back quit, and destroy
 		try {
+			Profiler.startProfile("Engine/Quit");
 			onQuit();
 			
 			World.destroy();
 			Render.destroy();
+			Profiler.endProfile("Engine/Quit");
 		} catch (Exception e) {
 			e.printStackTrace();
 			run = false;
 		}
+		
+		System.out.println(Profiler.output());
 	}
 	
 	/**

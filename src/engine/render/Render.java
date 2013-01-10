@@ -36,7 +36,7 @@ public class Render {
 	
 	private static SortByY sorter = new SortByY();
 	
-	public static boolean debugAxis = true;
+	public static boolean debugAxis = false;
 	
 	private Render(){}
 	
