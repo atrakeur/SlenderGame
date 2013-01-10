@@ -10,6 +10,7 @@ import engine.entity.IDrawable;
 import engine.entity.IEntitable;
 import engine.entity.IUpdatable;
 import engine.exceptions.GameException;
+import engine.math.Vector2;
 import engine.render.Camera;
 import engine.world.background.NoBackground;
 import engine.world.background.Background;
