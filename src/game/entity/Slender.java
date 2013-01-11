@@ -9,6 +9,8 @@ import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IUpdatable;
 import engine.input.Input;
+import engine.math.Vector2;
+import engine.physics.Physics;
 import engine.textures.TextureLoader;
 import engine.time.Time;
 import engine.world.World;
@@ -31,6 +33,11 @@ public class Slender extends Entity implements IDrawable, IUpdatable{
 			x--;
 		if(Input.isKeyDown(Keyboard.KEY_D))
 			x++;
+		
+		if(Input.isKeyDown(Keyboard.KEY_SPACE)){
+			Entity[] touchs = Physics.pointCast(new Vector2(position().x + x, position().y + y));
+			System.out.println(touchs);
+		}
 		
 		this.move(x * Time.delta(), y * Time.delta());
 		

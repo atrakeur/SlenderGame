@@ -51,4 +51,8 @@ public abstract class Entity implements IEntitable{
 			position.y -= y;
 	}
 
+	public String toString() {
+		return "Entity [name=" + name + ", position=" + position + "]";
+	}
+
 }

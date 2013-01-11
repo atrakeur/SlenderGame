@@ -1,7 +1,11 @@
 package engine.physics;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import engine.entity.Entity;
 import engine.math.Vector2;
+import engine.world.World;
 
 public class Physics {
 	
@@ -82,6 +86,25 @@ public class Physics {
 		
 		return true;
 		
+	}
+	
+	public static Entity[] pointCast(Vector2 point){
+		ArrayList<Entity> list = new ArrayList<Entity>();
+		
+		
+		Iterator<Entity> it = World.getEntityIterator();
+		Entity e;
+		
+		while(it.hasNext()){
+			e = it.next();
+			
+			if(Physics.checkPointCollision(point, e))
+				list.add(e);
+		}
+		
+		Entity[] retVal = new Entity[list.size()];
+		list.toArray(retVal);
+		return retVal;
 	}
 
 }
