@@ -12,7 +12,7 @@ import engine.world.background.ColorBackground;
 import engine.world.tile.ImageTile;
 import engine.world.tile.NoTile;
 import game.entity.characters.Man;
-import game.entity.characters.Slender;
+import game.entity.Slender;
 import game.entity.characters.Woman;
 
 public class GameLevel extends Level{
