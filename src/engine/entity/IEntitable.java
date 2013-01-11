@@ -33,16 +33,11 @@ public interface IEntitable {
 	 * @return the Vector2 used for sizing this entity
 	 */
 	public abstract Vector2 size();
-	
-	/**
-	 * @return the current rotation value
-	 */
-	public abstract float rotation();
-	
-	/**
-	 * @param newRotation the new Rotation to set to this entity
-	 */
-	public abstract void rotation(float newRotation);
 
+	/**
+	 * Move an entity by x, y amount using TileCollisionDetection
+	 * @param x
+	 * @param y
+	 */
 	public abstract void move(float x, float y);
 }

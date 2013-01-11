@@ -9,8 +9,6 @@ import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IUpdatable;
 import engine.input.Input;
-import engine.math.Vector2;
-import engine.physics.Physics;
 import engine.textures.TextureLoader;
 import engine.time.Time;
 import engine.world.World;

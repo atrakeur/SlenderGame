@@ -6,9 +6,10 @@ import engine.math.Vector2;
 public class Physics {
 	
 	/**
-	 * A temp Vector2 that is used in atomic operations for GC performance 
+	 * Two temp Vector2 that are used in atomic operations for GC performance 
 	 */
-	private static Vector2 tmpV = new Vector2();
+	private static Vector2 tmpV1 = new Vector2();
+	private static Vector2 tmpV2 = new Vector2();
 	
 	/**
 	 * Check if that entity collide with a point
@@ -19,10 +20,10 @@ public class Physics {
 	public static boolean checkPointCollision(Vector2 point, Entity e){
 			
 		//check against sphere
-		tmpV.x = point.x - e.position().x;
-		tmpV.y = point.y - e.position().y;
+		tmpV1.x = point.x - e.position().x;
+		tmpV1.y = point.y - e.position().y;
 			
-		if(tmpV.lengthSquared() > e.size().lengthSquared())
+		if(tmpV1.lengthSquared() > e.size().lengthSquared())
 			return false;
 		
 		
@@ -41,6 +42,45 @@ public class Physics {
 		
 		return true;
 		
+	}
+	
+	/**
+	 * Check if two entity overlaps each other
+	 * @param e1
+	 * @param e2
+	 * @return
+	 */
+	public static boolean checkEntityCollision(Entity e1, Entity e2){
+		
+		//check against sphere
+		tmpV1.x = e2.position().x - e1.position().x;
+		tmpV1.y = e2.position().y - e1.position().y;
+		
+		tmpV2.x = e2.size().x + e1.size().x;
+		tmpV2.y = e2.size().y + e1.size().y;
+		
+		if(tmpV1.lengthSquared() > tmpV2.lengthSquared())
+			return false;
+		
+		//check x bounds
+		float e1min = e1.position().x - e1.size().x;
+		float e2min = e2.position().x - e2.size().x;
+		float e1max = e1.position().x + e1.size().x;
+		float e2max = e2.position().x + e2.size().x;
+		
+		if(e1max > e2min || e2max > e1min)
+			return false;
+		
+		//check y bounds
+		e1min = e1.position().y - e1.size().y;
+		e2min = e2.position().y - e2.size().y;
+		e1max = e1.position().y + e1.size().y;
+		e2max = e2.position().y + e2.size().y;
+		
+		if(e1max > e2min || e2max > e1min)
+			return false;
+		
+		return true;
 		
 	}
 
