@@ -15,14 +15,14 @@ import java.util.Iterator;
 
 public class Bag<E> extends ArrayList<E> {
 	
-	ArrayList<Integer> toRemove;
+	ArrayList<Object> toRemove;
 	
 	/**
 	 * Construct an empty Bag with an initial capacity of 64
 	 */
 	public Bag(){
 		super(64);
-		toRemove = new ArrayList<Integer>();
+		toRemove = new ArrayList<Object>();
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class Bag<E> extends ArrayList<E> {
 	public boolean remove(Object object) {
 		int i = indexOf(object);
 		if (i >= 0) {
-			toRemove.add(i);
+			toRemove.add(object);
 			return true;
 		} else {
 			return false;
@@ -56,8 +56,6 @@ public class Bag<E> extends ArrayList<E> {
 		if(toRemove.size() == 0)
 			return;
 		
-		//sort in ascending id order
-		Collections.sort(toRemove);
 		//Delete in descending id order (so upcoming id don't change)
 		for(int i = toRemove.size()-1; i >= 0; i--){
 			super.remove(toRemove.get(i));

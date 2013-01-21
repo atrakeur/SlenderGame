@@ -5,6 +5,8 @@ import engine.entity.IDrawable;
 import engine.entity.IUpdatable;
 import engine.math.Vector2;
 import engine.time.Time;
+import engine.world.World;
+import game.entity.Dead;
 
 /**
  * Defines a common character in game
@@ -34,6 +36,17 @@ public abstract class Person extends Entity implements IDrawable, IUpdatable{
 		
 		//Apply the chosen movement
 		move(lastMove.x * Time.delta(), lastMove.y * Time.delta());
+	}
+	
+	/**
+	 * Kill this person
+	 */
+	public void kill(){
+		Dead d = new Dead();
+		d.position().set(position());
+		World.addEntity(d);
+		
+		World.removeEntity(this);
 	}
 
 }

@@ -2,10 +2,10 @@ package engine.main;
 
 import org.lwjgl.opengl.Display;
 
+import engine.debug.Profiler;
 import engine.input.Input;
 import engine.render.Render;
 import engine.resources.Resources;
-import engine.time.Profiler;
 import engine.time.Time;
 import engine.world.World;
 
@@ -55,6 +55,8 @@ public abstract class Engine {
 			Render.update();
 			Profiler.endProfile("Engine/Render");
 			
+			//Clean world
+			World.clean();
 			
 			//change level if needed
 			checkChangeLevel();

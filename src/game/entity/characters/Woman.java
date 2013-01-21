@@ -38,4 +38,8 @@ public class Woman extends Person{
 		TextureLoader.getTexture("woman.png").unbind();
 	}
 
+	public String toString() {
+		return "Woman []";
+	}
+
 }

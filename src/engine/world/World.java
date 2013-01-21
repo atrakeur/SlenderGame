@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import engine.collections.Bag;
+import engine.debug.Profiler;
 import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IEntitable;
@@ -177,12 +178,16 @@ public class World{
 	 * Update all entities
 	 */
 	public static void update(){
+		Profiler.startProfile("Engine/Update/World");
+		
 		//Update all updatable entities
 		for(IUpdatable u : updatables)
 			u.onUpdate();
 		
 		if(mainCamera instanceof IUpdatable)
 			((IUpdatable) mainCamera).onUpdate();
+		
+		Profiler.endProfile("Engine/Update/World");
 	}
 	
 	/**

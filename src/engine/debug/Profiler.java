@@ -1,9 +1,11 @@
-package engine.time;
+package engine.debug;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import engine.time.Time;
 
 class ProfilePoint{
 	

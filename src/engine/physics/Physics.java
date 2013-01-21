@@ -12,8 +12,8 @@ public class Physics {
 	/**
 	 * Two temp Vector2 that are used in atomic operations for GC performance 
 	 */
-	private static Vector2 tmpV1 = new Vector2();
-	private static Vector2 tmpV2 = new Vector2();
+	private final static Vector2 tmpV1 = new Vector2();
+	private final static Vector2 tmpV2 = new Vector2();
 	
 	/**
 	 * Check if that entity collide with a point
@@ -34,18 +34,43 @@ public class Physics {
 		float minX = e.position().x - e.size().x / 2;
 		float maxX = e.position().x + e.size().x / 2;
 		//check against X bounds
-		if(point.x < minX && point.x > maxX)
+		if(point.x <= minX || point.x >= maxX)
 			return false;
 		
 		
 		float minY = e.position().y - e.size().y / 2;
 		float maxY = e.position().y + e.size().y / 2;
 		//check against Y bounds
-		if(point.y < minY && point.y > maxY)
+		if(point.y <= minY || point.y >= maxY)
 			return false;
+		
 		
 		return true;
 		
+	}
+	
+	/**
+	 * Return all entities intersecting with this point
+	 * @param point
+	 * @return
+	 */
+	public static Entity[] pointCast(Vector2 point){
+		ArrayList<Entity> list = new ArrayList<Entity>();
+		
+		
+		Iterator<Entity> it = World.getEntityIterator();
+		Entity e;
+		
+		while(it.hasNext()){
+			e = it.next();
+			
+			if(Physics.checkPointCollision(point, e))
+				list.add(e);
+		}
+		
+		Entity[] retVal = new Entity[list.size()];
+		list.toArray(retVal);
+		return retVal;
 	}
 	
 	/**
@@ -67,28 +92,33 @@ public class Physics {
 			return false;
 		
 		//check x bounds
-		float e1min = e1.position().x - e1.size().x;
-		float e2min = e2.position().x - e2.size().x;
-		float e1max = e1.position().x + e1.size().x;
-		float e2max = e2.position().x + e2.size().x;
+		float e1min = e1.position().x - e1.size().x/2;
+		float e2min = e2.position().x - e2.size().x/2;
+		float e1max = e1.position().x + e1.size().x/2;
+		float e2max = e2.position().x + e2.size().x/2;
 		
-		if(e1max > e2min || e2max > e1min)
+		if(e1max < e2min || e2max < e1min)
 			return false;
 		
 		//check y bounds
-		e1min = e1.position().y - e1.size().y;
-		e2min = e2.position().y - e2.size().y;
-		e1max = e1.position().y + e1.size().y;
-		e2max = e2.position().y + e2.size().y;
+		e1min = e1.position().y - e1.size().y/2;
+		e2min = e2.position().y - e2.size().y/2;
+		e1max = e1.position().y + e1.size().y/2;
+		e2max = e2.position().y + e2.size().y/2;
 		
-		if(e1max > e2min || e2max > e1min)
+		if(e1max < e2min || e2max < e1min)
 			return false;
 		
 		return true;
 		
 	}
 	
-	public static Entity[] pointCast(Vector2 point){
+	/**
+	 * Get all entity colliding with an entity (except itself)
+	 * @param from
+	 * @return
+	 */
+	public static Entity[] getCollidingEntities(Entity from){
 		ArrayList<Entity> list = new ArrayList<Entity>();
 		
 		
@@ -98,7 +128,10 @@ public class Physics {
 		while(it.hasNext()){
 			e = it.next();
 			
-			if(Physics.checkPointCollision(point, e))
+			if(e == from)
+				continue;
+			
+			if(Physics.checkEntityCollision(from, e))
 				list.add(e);
 		}
 		

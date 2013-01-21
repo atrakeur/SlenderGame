@@ -1,23 +1,22 @@
-package game.entity.characters;
+package game.entity;
 
 import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
 
+import engine.entity.Entity;
+import engine.entity.IDrawable;
 import engine.textures.TextureLoader;
 
-/**
- * Define a Man character
- * 
- * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
- * Created 9 janv. 2013 at 17:18:04
- *
- */
-public class Man extends Person{
-
-	public void onDraw() throws IOException {
+public class Dead extends Entity implements IDrawable{
+	
+	public void onStart() throws IOException{
+		this.setName("Dead");
+	}
+	
+	public void onDraw() throws IOException{
 		GL11.glColor3f(1f,1f,1f);
-		TextureLoader.getTexture("man.png").bind();
+		TextureLoader.getTexture("dead.png").bind();
 		
 		GL11.glBegin(GL11.GL_QUADS);
 		
@@ -35,11 +34,7 @@ public class Man extends Person{
 		
 		GL11.glEnd();
 		
-		TextureLoader.getTexture("man.png").unbind();
-	}
-
-	public String toString() {
-		return "Man []";
+		TextureLoader.getTexture("dead.png").unbind();
 	}
 
 }

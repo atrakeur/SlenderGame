@@ -14,6 +14,7 @@ import engine.physics.Physics;
 import engine.textures.TextureLoader;
 import engine.time.Time;
 import engine.world.World;
+import game.entity.characters.Person;
 
 public class Slender extends Entity implements IDrawable, IUpdatable{
 	
@@ -35,8 +36,12 @@ public class Slender extends Entity implements IDrawable, IUpdatable{
 			x++;
 		
 		if(Input.isKeyDown(Keyboard.KEY_SPACE)){
-			Entity[] touchs = Physics.pointCast(new Vector2(position().x + x, position().y + y));
-			System.out.println(touchs);
+			Entity[] touchs = Physics.pointCast(position());
+			for(int i = 0; i < touchs.length; i++)
+				if(touchs[i] instanceof Person){
+					((Person)touchs[i]).kill();
+				}
+				
 		}
 		
 		this.move(x * Time.delta(), y * Time.delta());
@@ -66,6 +71,10 @@ public class Slender extends Entity implements IDrawable, IUpdatable{
 		GL11.glEnd();
 		
 		TextureLoader.getTexture("slender.png").unbind();
+	}
+
+	public String toString() {
+		return "Slender []";
 	}
 
 }

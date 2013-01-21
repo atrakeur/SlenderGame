@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import engine.debug.Profiler;
 import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IEntitable;
@@ -97,6 +98,8 @@ public class Render {
 	 * Update viewport calculations
 	 */
 	public static void updateViewport(){
+		Profiler.startProfile("Engine/Render/Viewport");
+		
 		Vector2 pos  = World.getMainCamera().position();
 		Vector2 size = World.getMainCamera().size();
 		
@@ -107,12 +110,15 @@ public class Render {
 		cameraLowerRight.x = (pos.x + size.x/2);
 		cameraLowerRight.y = pos.y + size.y/2 / ratio;
 		
+		Profiler.endProfile("Engine/Render/Viewport");
 	}
 	
 	/**
 	 * Update (draw) background
 	 */
 	public static void updateBackground(){
+		Profiler.startProfile("Engine/Render/Background");
+		
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(-0.5f, 0.5f, -0.5f, 0.5f, 1f, -1f);
@@ -120,13 +126,17 @@ public class Render {
 		GL11.glLoadIdentity();
 		
 		World.getBackground().onDraw();
+		
+		Profiler.endProfile("Engine/Render/Background");
 	}
 	
 	/**
 	 * Update (draw) the layer
 	 * @param layer to update
 	 */
-	public static void updateLayer(int layer){	
+	public static void updateLayer(int layer){
+		Profiler.startProfile("Engine/Render/Layer"+layer);
+		
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(cameraUpperLeft.x, cameraLowerRight.x, cameraUpperLeft.y, cameraLowerRight.y, 1, -1);
@@ -152,12 +162,15 @@ public class Render {
 			e.printStackTrace();
 		}
 		
+		Profiler.endProfile("Engine/Render/Layer"+layer);
 	}
 	
 	/**
 	 * Update (draw) entities
 	 */
 	public static void updateEntities(){
+		Profiler.startProfile("Engine/Render/Entities");
+		
 		//setup viewport 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
@@ -185,18 +198,24 @@ public class Render {
 			
 		}
 		
+		Profiler.endProfile("Engine/Render/Entities");
+		
 	}
 	
 	/**
 	 * Update (draw) GUI
 	 */
 	public static void updateGUI(){
+		Profiler.startProfile("Engine/Render/GUI");
+		
 		//define viewport position
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, width, 0, height, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
+		
+		Profiler.endProfile("Engine/Render/GUI");
 	}
 	
 	public static void updateDebugAxis(){
