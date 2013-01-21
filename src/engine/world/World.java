@@ -9,6 +9,7 @@ import engine.debug.Profiler;
 import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IEntitable;
+import engine.entity.IGuiable;
 import engine.entity.IUpdatable;
 import engine.exceptions.GameException;
 import engine.math.Vector2;
@@ -38,6 +39,7 @@ public class World{
 	private static Bag<Entity> entities;
 	private static Bag<IUpdatable> updatables;
 	private static Bag<IDrawable> drawables;
+	private static Bag<IGuiable> guiables;
 	
 	private static Camera mainCamera;
 	
@@ -60,6 +62,7 @@ public class World{
 		entities = new Bag<Entity>();
 		updatables = new Bag<IUpdatable>();
 		drawables = new Bag<IDrawable>();
+		guiables = new Bag<IGuiable>();
 		
 		mainCamera = new Camera();
 		
@@ -89,6 +92,7 @@ public class World{
 		entities.clean();
 		updatables.clean();
 		drawables.clean();
+		guiables.clean();
 	}
 	
 	/**
@@ -101,6 +105,7 @@ public class World{
 		entities.clear();
 		updatables.clear();
 		drawables.clear();
+		guiables.clear();
 	}
 	
 	/*************************************************
@@ -160,6 +165,13 @@ public class World{
 	}
 	
 	/**
+	 * @return a list of all guiables
+	 */
+	public static List<IGuiable> getGuiables(){
+		return guiables;
+	}
+	
+	/**
 	 * Add an entity
 	 */
 	public static void addEntity(Entity e){
@@ -170,6 +182,9 @@ public class World{
 		
 		if(e instanceof IDrawable)
 			drawables.add((IDrawable)e);
+		
+		if(e instanceof IGuiable)
+			guiables.add((IGuiable) e);
 		
 		e.onCreate();
 	}
@@ -199,6 +214,7 @@ public class World{
 			entities.remove(e);
 			updatables.remove(e);
 			drawables.remove(e);
+			guiables.remove(e);
 		}
 	}
 	

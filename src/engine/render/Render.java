@@ -9,6 +9,7 @@ import engine.debug.Profiler;
 import engine.entity.Entity;
 import engine.entity.IDrawable;
 import engine.entity.IEntitable;
+import engine.entity.IGuiable;
 import engine.exceptions.GameException;
 import engine.math.Vector2;
 import engine.world.Layer;
@@ -214,6 +215,10 @@ public class Render {
 		GL11.glOrtho(0, width, 0, height, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
+		
+		//call onGUI on all GUIables entities
+		for(IGuiable g: World.getGuiables())
+			g.onGUI();
 		
 		Profiler.endProfile("Engine/Render/GUI");
 	}
