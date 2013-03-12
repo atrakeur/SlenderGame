@@ -32,7 +32,25 @@ public class Camera extends Entity{
 	 * @return the world position
 	 */
 	public float screenToWorldY(float screenY){
-		return (screenY-Render.height()/2)/Render.height() * size().y + position().y;
+		return ((screenY-Render.height()/2)/Render.height() * size().y + position().y) / Render.ratio();
+	}
+	
+	/**
+	 * Translate world X coordinates to screen
+	 * @param worldX position in world
+	 * @return the screen position
+	 */
+	public float worldToScreenX(float worldX){
+		return ((worldX - position().x) / size().x) * Render.width() + Render.width()/2;
+	}
+	
+	/**
+	 * Translate world Y coordinates to screen
+	 * @param worldY position in world
+	 * @return the screen position
+	 */
+	public float worldToScreenY(float worldY){
+		return ((worldY - position().y) / size().y) * Render.height() + Render.height()/2;
 	}
 
 }

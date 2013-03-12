@@ -273,5 +273,9 @@ public class Render {
 		
 		Render.height = height;
 	}
+	
+	public static float ratio(){
+		return ratio;
+	}
 
 }

@@ -13,6 +13,7 @@ import engine.world.tile.ImageTile;
 import engine.world.tile.NoTile;
 import game.entity.characters.Man;
 import game.entity.Slender;
+import game.entity.Target;
 import game.entity.characters.Woman;
 
 public class GameLevel extends Level{
@@ -61,6 +62,7 @@ public class GameLevel extends Level{
 		World.addEntity(new Man());
 		World.addEntity(new Man());
 		World.addEntity(new Man());
+		World.addEntity(new Target());
 	}
 
 	public void onUpdate() {

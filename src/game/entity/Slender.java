@@ -82,7 +82,11 @@ public class Slender extends Entity implements IDrawable, IUpdatable, IGuiable{
 
 	public void onGUI() {
 		try {
-			if(GUI.button(new Rectangle(0, 0, 100, 50), TextureLoader.getTexture("buttons/button1.png")))
+			if(GUI.button(new Rectangle(
+					(int)World.getMainCamera().worldToScreenX(position().x), 
+					(int)World.getMainCamera().worldToScreenY(position().y), 
+					100, 
+					50), TextureLoader.getTexture("buttons/button1.png")))
 				System.out.println("Bouton cliqué");
 		} catch (IOException e) {
 			e.printStackTrace();
