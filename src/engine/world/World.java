@@ -28,8 +28,14 @@ public class World{
 	
 	private static boolean isInit = false;
 	
+	/*
+	 * Hold camera background
+	 */
 	private static Background background;
 	
+	/*
+	 * Hold background layers
+	 */
 	public static final int LAYER_COUNT = 3;
 	private static Layer[] layers;
 	
@@ -41,6 +47,9 @@ public class World{
 	private static Bag<IDrawable> drawables;
 	private static Bag<IGuiable> guiables;
 	
+	/*
+	 * Hold camera used for rendering 
+	 */
 	private static Camera mainCamera;
 	
 	/*************************************************
@@ -268,8 +277,14 @@ public class World{
 		return retEnt;
 	}
 
+	/**
+	 * @param mainCamera the new camera to set as main
+	 */
 	public static void setMainCamera(Camera mainCamera) {	World.mainCamera = mainCamera;	}
 
+	/**
+	 * @return the main camera
+	 */
 	public static Camera getMainCamera() {	return mainCamera;	}
 
 	/**

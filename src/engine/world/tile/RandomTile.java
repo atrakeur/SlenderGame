@@ -4,6 +4,13 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 
+/**
+ * A random tile that show with a random color for testing purpose
+ * 
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 8 mars 2013 at 18:42:32
+ *
+ */
 public class RandomTile extends Tile{
 	
 	private Color color;

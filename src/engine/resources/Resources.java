@@ -11,6 +11,12 @@ import javax.imageio.ImageIO;
 
 import engine.exceptions.GameException;
 
+/**
+ * A common ressource loading class
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 8 mars 2013 at 18:33:13
+ *
+ */
 public class Resources {
 	
 	private static boolean isInit;

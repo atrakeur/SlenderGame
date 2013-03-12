@@ -14,6 +14,8 @@ import engine.world.tile.Tile;
 /**
  * Define a map layer
  * 
+ * A layer contains tiles and are drawed in index natural order
+ * 
  * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
  * Created 21 déc. 2012 at 19:32:49
  *

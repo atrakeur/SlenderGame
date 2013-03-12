@@ -1,5 +1,6 @@
 package game.entity;
 
+import java.awt.Rectangle;
 import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
@@ -7,7 +8,9 @@ import org.lwjgl.opengl.GL11;
 
 import engine.entity.Entity;
 import engine.entity.IDrawable;
+import engine.entity.IGuiable;
 import engine.entity.IUpdatable;
+import engine.gui.GUI;
 import engine.input.Input;
 import engine.math.Vector2;
 import engine.physics.Physics;
@@ -16,7 +19,7 @@ import engine.time.Time;
 import engine.world.World;
 import game.entity.characters.Person;
 
-public class Slender extends Entity implements IDrawable, IUpdatable{
+public class Slender extends Entity implements IDrawable, IUpdatable, IGuiable{
 	
 	public void onStart() throws IOException{
 		this.setName("Slender");
@@ -75,6 +78,16 @@ public class Slender extends Entity implements IDrawable, IUpdatable{
 
 	public String toString() {
 		return "Slender []";
+	}
+
+	public void onGUI() {
+		try {
+			if(GUI.button(new Rectangle(0, 0, 100, 50), TextureLoader.getTexture("buttons/button1.png")))
+				System.out.println("Bouton cliqué");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

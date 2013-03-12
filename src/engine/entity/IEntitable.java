@@ -2,6 +2,13 @@ package engine.entity;
 
 import engine.math.Vector2;
 
+/**
+ * Interface implemented by Entity class
+ * 
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 8 mars 2013 at 18:22:38
+ *
+ */
 public interface IEntitable {
 
 	/**

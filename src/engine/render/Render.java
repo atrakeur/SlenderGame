@@ -42,7 +42,7 @@ public class Render {
 	
 	private Render(){}
 	
-	/*
+	/**
 	 * Init the Render
 	 */
 	public static void init() throws Exception{
@@ -212,7 +212,7 @@ public class Render {
 		//define viewport position
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, width, 0, height, 1, -1);
+		GL11.glOrtho(0, width, height, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		

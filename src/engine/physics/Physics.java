@@ -7,6 +7,15 @@ import engine.entity.Entity;
 import engine.math.Vector2;
 import engine.world.World;
 
+/**
+ * Physics class
+ * 
+ * Used for physics management like collisions
+ * 
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 8 mars 2013 at 18:32:12
+ *
+ */
 public class Physics {
 	
 	/**

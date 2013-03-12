@@ -5,8 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 /**
- * Un bag est une sorte d'array list, mais qui ne preserve pas l'ordre des elements
- * Classe spécialement rapide pour les jeux
+ * 
  * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
  * Created 27 mai 2012 at 08:32:38
  *

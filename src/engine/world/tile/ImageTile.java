@@ -6,6 +6,13 @@ import org.lwjgl.opengl.GL11;
 
 import engine.textures.TextureLoader;
 
+/**
+ * A simple tile example that display an image
+ * 
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 8 mars 2013 at 18:44:06
+ *
+ */
 public class ImageTile extends Tile {
 	
 	private String image;

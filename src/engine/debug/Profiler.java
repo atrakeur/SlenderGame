@@ -29,6 +29,15 @@ class ProfilePoint{
 	
 }
 
+/**
+ * Profiler is used for game engine profiling
+ * It track execution time in different engine critical points of the engine, but with less overhead than a standard profiler
+ * It's designed to be incorporated in the final game so that a quick and easy profiling solution is available for players.
+ * 
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 8 mars 2013 at 18:19:13
+ *
+ */
 public class Profiler {
 	
 	private static HashMap<String, ProfilePoint> points = new HashMap<String, ProfilePoint>();

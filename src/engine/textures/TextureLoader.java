@@ -33,7 +33,7 @@ public class TextureLoader {
 	private static HashMap<String, Texture> textures = new HashMap<String, Texture>();
 	
 	/**
-     * Load a texture
+     * get a texture by his resource name
      *
      * @param resourceName The location of the resource to load
      * @return The loaded texture

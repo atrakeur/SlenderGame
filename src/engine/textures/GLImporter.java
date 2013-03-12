@@ -17,6 +17,11 @@ public class GLImporter {
 	
 	private static final int BYTES_PER_PIXEL = 4;
 	
+	/**
+	 * Load an image to the graphic card
+	 * @param image the image to load
+	 * @return the index used by opengl for this image
+	 */
 	public static int loadImage(BufferedImage image){
 		int[] pixels = new int[image.getWidth() * image.getHeight()];
 		image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
@@ -55,6 +60,10 @@ public class GLImporter {
 		return textureID;
 	}
 	
+	/**
+	 * Delete image from the Graphics card
+	 * @param textureID the index of the image to delete
+	 */
 	public static void deleteImage(int textureID){
 		GL11.glDeleteTextures(textureID);
 	}

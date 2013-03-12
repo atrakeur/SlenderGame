@@ -9,7 +9,14 @@ import engine.resources.Resources;
 import engine.time.Time;
 import engine.world.World;
 
-
+/**
+ * The main Engine core
+ * Your game application must extends this class in order to have access to all other engine features
+ * 
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 8 mars 2013 at 18:26:28
+ *
+ */
 public abstract class Engine {
 	
 	private boolean run = true;
@@ -72,6 +79,9 @@ public abstract class Engine {
 		//call back quit, and destroy
 		try {
 			Profiler.startProfile("Engine/Quit");
+			if(this.currentLevel != null)
+				currentLevel.onDestroy();
+			
 			onQuit();
 			
 			World.destroy();
@@ -104,6 +114,9 @@ public abstract class Engine {
 		this.nextLevel = nextLevel;
 	}
 	
+	/**
+	 * Update the current level
+	 */
 	public void updateLevel(){
 		if(currentLevel != null)
 			currentLevel.onUpdate();

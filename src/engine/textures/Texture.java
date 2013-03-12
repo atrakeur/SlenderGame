@@ -4,6 +4,14 @@ import java.awt.image.BufferedImage;
 
 import org.lwjgl.opengl.GL11;
 
+/**
+ * Texture class
+ * Used by the engine to represent OpenGL images
+ * 
+ * @author Valentin 'Atrakeur' Letourneur <atrakeur@gmail.com>
+ * Created 8 mars 2013 at 18:35:09
+ *
+ */
 public class Texture {
 	
 	private final String name;

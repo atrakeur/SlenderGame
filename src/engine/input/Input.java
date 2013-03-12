@@ -11,6 +11,7 @@ public class Input {
 	
 	public static final Vector2 mousePosition = new Vector2();
 	
+	
 	public static void update(){
 		Profiler.startProfile("Engine/Update/Input");
 		mousePosition.x = Mouse.getX();

@@ -18,10 +18,19 @@ public abstract class Level {
 		this.levelName = levelName;
 	}
 	
+	/**
+	 * Called when starting the new level, just after unloading the previous
+	 */
 	public abstract void onStart();
 	
+	/**
+	 * Called when the level need to update, just after world update
+	 */
 	public abstract void onUpdate();
 	
+	/**
+	 * Called when destroying the level, just before loading a new level or before exiting
+	 */
 	public abstract void onDestroy();
 
 }
