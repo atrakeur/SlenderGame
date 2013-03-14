@@ -62,7 +62,6 @@ public class GameLevel extends Level{
 		World.addEntity(new Man());
 		World.addEntity(new Man());
 		World.addEntity(new Man());
-		World.addEntity(new Target());
 	}
 
 	public void onUpdate() {

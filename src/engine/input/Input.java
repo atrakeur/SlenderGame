@@ -11,12 +11,21 @@ public class Input {
 	
 	public static final Vector2 mousePosition = new Vector2();
 	
-	
+	/**
+	 * Update value for the current frame
+	 */
 	public static void update(){
 		Profiler.startProfile("Engine/Update/Input");
 		mousePosition.x = Mouse.getX();
 		mousePosition.y = Mouse.getY();
 		Profiler.endProfile("Engine/Update/Input");
+	}
+	
+	/**
+	 * Cleanup values for the next frame
+	 */
+	public static void clean(){
+		
 	}
 	
 	public static boolean isButtonDown(int button){

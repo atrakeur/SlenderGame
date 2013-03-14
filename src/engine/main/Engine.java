@@ -62,8 +62,9 @@ public abstract class Engine {
 			Render.update();
 			Profiler.endProfile("Engine/Render");
 			
-			//Clean world
+			//Clean world & input
 			World.clean();
+			Input.clean();
 			
 			//change level if needed
 			checkChangeLevel();
