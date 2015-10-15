@@ -1,6 +1,7 @@
 package engine.render;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -58,8 +59,38 @@ public class Render {
 	 * Init the display
 	 */
 	private static void initDisplay() throws LWJGLException{
-		Display.setDisplayMode(new DisplayMode(width,height));
+		initLibrary();
+
+		Display.setDisplayMode(new DisplayMode(width, height));
 		Display.create();
+	}
+
+	private static void initLibrary() {
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			System.setProperty("java.library.path", "lib/native/windows");
+		}
+		else if (os.contains("max")) {
+			System.setProperty("java.library.path", "lib/native/macosx");
+		}
+		else if (os.contains("nix")) {
+			System.setProperty("java.library.path", "lib/native/linux");
+		}
+		else {
+			throw new IllegalStateException("Unsupported OS "+os);
+		}
+
+		//Reset classloader to force reload of library path
+		try {
+			Field fieldSysPath = ClassLoader.class.getDeclaredField( "sys_paths" );
+			fieldSysPath.setAccessible( true );
+			fieldSysPath.set(null, null);
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	/*

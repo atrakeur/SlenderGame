@@ -3,6 +3,10 @@ package game.entity;
 import java.awt.Rectangle;
 import java.io.IOException;
 
+import engine.main.Engine;
+import game.entity.characters.Man;
+import game.entity.characters.Woman;
+import game.levels.GameLevel;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -82,12 +86,10 @@ public class Slender extends Entity implements IDrawable, IUpdatable, IGuiable{
 
 	public void onGUI() {
 		try {
-			if(GUI.button(new Rectangle(
-					(int)World.getMainCamera().worldToScreenX(position().x), 
-					(int)World.getMainCamera().worldToScreenY(position().y), 
-					100, 
-					50), TextureLoader.getTexture("buttons/button1.png")))
-				System.out.println("Bouton cliqué");
+			if(GUI.button(new Rectangle(10, 10, 150, 65), TextureLoader.getTexture("buttons/button1.png"))) {
+				World.addEntity(new Woman());
+				World.addEntity(new Man());
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -2,9 +2,8 @@ package engine.gui;
 
 import java.awt.Rectangle;
 
+import engine.time.Time;
 import org.lwjgl.opengl.GL11;
-
-import sun.awt.X11.Screen;
 
 import engine.input.Input;
 import engine.render.Render;
@@ -18,6 +17,9 @@ import engine.textures.Texture;
  *
  */
 public class GUI {
+
+	public static final float thresold = 10000;
+	private static float nextClick = 0;
 	
 	/**
 	 * Print a label to the screen
@@ -54,8 +56,13 @@ public class GUI {
 	 */
 	public static boolean button(Rectangle rect, Texture texture){
 		label(rect, texture);
-		
-		return Input.isButtonDown(0) && rect.contains(Input.mousePosition.x, Render.height() - Input.mousePosition.y);
+
+		if (nextClick <= Time.time()) {
+			nextClick = Time.time() + thresold;
+			return Input.isButtonDown(0) && rect.contains(Input.mousePosition.x, Render.height() - Input.mousePosition.y);
+		} else {
+			return false;
+		}
 	}
 
 }
