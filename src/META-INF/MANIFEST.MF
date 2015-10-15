@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: lib/lzma.jar lib/lwjgl.jar lib/lwjgl-debug.jar lib/lwjgl_test.jar lib/lwjgl_util.jar lib/lwjgl_util_applet.jar lib/jinput.jar lib/vecmath-1.3.1.jar
+Main-Class: game.main.Main
+
